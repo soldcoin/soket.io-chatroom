@@ -23,6 +23,8 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
+
+
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
@@ -82,6 +84,40 @@ devMiddleware.waitUntilValid(() => {
 })
 
 var server = app.listen(port)
+
+
+
+/***************socket.io**********************/
+
+
+// const http = require('http').Server(app);
+
+const io = require('socket.io')(server);
+
+const https = require('https');
+
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({ extended: true} ));
+
+io.on('connection', (socket) => {
+
+  //上线
+  socket.on('online', name => {
+    console.log('a user online');
+    socket.broadcast.emit('online', name)
+  });
+
+  console.log('a user connected');
+
+});
+
+
+
+
+/***************socket.io**********************/
 
 module.exports = {
   ready: readyPromise,

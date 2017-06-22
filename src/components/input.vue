@@ -32,7 +32,7 @@
 			font-size: 0.32rem;
 			padding: 0.05rem;
 			border-bottom: 1px solid #2EB5E5;
-			resize: none;
+			background: #f5f5f5;
 		}
 		button {
 			// display: inline-block;

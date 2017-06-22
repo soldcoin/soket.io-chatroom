@@ -51,6 +51,9 @@ body, html {
   text-align: center;
   color: #2c3e50;
   /*margin-top: 60px;*/
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 .chat-content {
   position: fixed;
@@ -58,6 +61,7 @@ body, html {
   top: 0.88rem;
   bottom: 0.88rem;
   width: 100%;
-  overflow: scroll;
+  background: #f5f5f5;
+  overflow-y: scroll;
 }
 </style>
