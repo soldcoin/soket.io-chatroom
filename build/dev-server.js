@@ -94,23 +94,33 @@ var server = app.listen(port)
 
 const io = require('socket.io')(server);
 
-const https = require('https');
+const http = require('http');
 
-var bodyParser = require('body-parser');
+// var bodyParser = require('body-parser');
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({ extended: true} ));
+// app.use(bodyParser.urlencoded({ extended: true} ));
 
 io.on('connection', (socket) => {
 
+  socket.broadcast.emit("caron's room");
+
   //上线
-  socket.on('online', name => {
-    console.log('a user online');
-    socket.broadcast.emit('online', name)
+  // socket.on('online', name => {
+  //   console.log('a user online');
+  //   socket.broadcast.emit('online', name)
+  // });
+
+  // console.log('a user connected');
+
+  socket.on('chat message', function (msg) {
+    io.emit('chat message', msg);
   });
 
-  console.log('a user connected');
+  socket.on('disconnect', function () {
+    // console.log('user disconnected');
+  });
 
 });
 

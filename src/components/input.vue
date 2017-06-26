@@ -1,12 +1,32 @@
 <template>
 	<div class="input-box">
-		<input name="message" id="message" /><button>Send</button>
+		<input v-model="inputMsg" v-on:keydown.enter="sendMsg(inputMsg)" name="message" id="message" /><button v-on:click="sendMsg(inputMsg)">Send</button>
 	</div>
 </template>
 
 <script type="text/javascript">
+	// import 'socket.io-client';
+
+	var socket = io();
+
 	export default {
 		name: 'input-box',
+		data () {
+			return {
+				inputMsg: ''
+			}
+		},
+		methods: {
+			sendMsg: function (inputMsg) {
+				// console.log(inputMsg)
+				if (!inputMsg) return;//消息不能为空
+
+				socket.emit('chat message', inputMsg);
+				this.inputMsg = '';
+
+				this.$emit('sendMsg', inputMsg);
+			},
+		}
 	}
 </script>
 

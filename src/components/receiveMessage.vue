@@ -5,9 +5,9 @@
 				<div class="info">
 					<img src="../assets/logo.png" />
 				</div>
-				<p class="item">站在能分割世界的桥，还是看不清，在那些时刻，遮蔽我们，黑暗的心，究竟是什么模样，住在我心里孤独的，孤独的海怪，痛苦之王，开始厌倦，深海的光，停滞的海浪</p>
+				<p v-bind="showReceiveMsg()" class="item">{{ receiveMsg }}</p>
 			</div>
-			<div class="message">
+<!-- 			<div class="message">
 				<div class="info">
 					<img src="../assets/logo.png" />
 				</div>
@@ -18,14 +18,30 @@
 					<img src="../assets/logo.png" />
 				</div>
 				<p class="item">孤独的海怪</p>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </template>
 
 <script>
+
+	var socket = io();
+
 	export default {
 		name: 'inMesg',
+		data () {
+			return {
+				receiveMsg: ''
+			}
+		},
+		methods: {
+			showReceiveMsg: function (args) {
+				var _this = this;
+				socket.on('chat message', function (msg) {
+					_this.receiveMsg = msg;
+				});
+			}
+		}
 	}
 </script>
 

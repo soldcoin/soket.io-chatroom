@@ -4,20 +4,31 @@
 			<div class="info">
 				<img src="../assets/logo.png" />
 			</div>
-			<p class="item">看着他们，为了彼岸</p>
-		</div>
-		<div class="message msg-mine clearfix">
-			<div class="info">
-				<img src="../assets/logo.png" />
-			</div>
-			<p class="item">面向涣散的未来，心中扑满黑暗的的灯火。在科学和啤酒都不能，只唱情歌看不到坦克</p>
+			<p v-bind="showSendMsg()" class="item">{{ sendMsg }}</p>
 		</div>
 	</div>
 </template>
 
 <script>
+
+
+
 	export default {
 		name: 'inMesg',
+		data () {
+			return {
+				sendMsg: ''
+			}
+		},
+		methods: {
+			showSendMsg: function () {
+				var socket = io();
+				var _this = this;
+				socket.on('chat message', function (msg) {
+					_this.sendMsg = msg;
+				});
+			}
+		}
 	}
 </script>
 
