@@ -104,7 +104,7 @@ const http = require('http');
 
 io.on('connection', (socket) => {
 
-  socket.broadcast.emit("caron's room");
+  // socket.broadcast.emit("caron's room");
 
   //上线
   // socket.on('online', name => {
@@ -114,13 +114,16 @@ io.on('connection', (socket) => {
 
   // console.log('a user connected');
 
-  socket.on('chat message', function (msg) {
-    io.emit('chat message', msg);
-  });
+  // socket.on('chat message', function (msg) {
+  //   io.emit('chat message', msg);
+  // });
+  socket.on('sendMsg', function (data) {
+    socket.broadcast.emit('receiveMsg', data);
+  })
 
-  socket.on('disconnect', function () {
+  // socket.on('disconnect', function () {
     // console.log('user disconnected');
-  });
+  // });
 
 });
 

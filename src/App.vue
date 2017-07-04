@@ -1,27 +1,27 @@
 <template>
   <div id="app">
-    <nav-header></nav-header>
+<!--     <nav-header></nav-header>
     <div class="chat-content">
       <in-msg></in-msg>
       <out-msg></out-msg>
     </div>
-    <input-box></input-box>
+    <input-box></input-box> -->
+    <chat-room></chat-room>
   </div>
 </template>
 
 <script>
-import navHeader from './components/header'
-import inputBox from './components/input.vue'
-import inMsg from './components/receiveMessage.vue'
-import outMsg from './components/sendMessage.vue'
+// import navHeader from './components/header'
+// import inputBox from './components/input.vue'
+// import inMsg from './components/receiveMessage.vue'
+// import outMsg from './components/sendMessage.vue'
+import chatroom from './components/chatroom.vue'
+
+// const socket = io();s
 
 export default {
-  name: 'app',
   components: {
-    'nav-header': navHeader,
-    'input-box': inputBox,
-    'in-msg': inMsg,
-    'out-msg': outMsg
+    'chat-room': chatroom
   }
 }
 </script>
@@ -54,8 +54,10 @@ body, html {
   height: 100%;
   max-width: 1200px;
   margin: 0 auto;
+
+  position: relative;
 }
-.chat-content {
+/*.chat-content {
   position: fixed;
   left: 0;
   top: 0.88rem;
@@ -63,5 +65,5 @@ body, html {
   width: 100%;
   background: #f5f5f5;
   overflow-y: scroll;
-}
+}*/
 </style>

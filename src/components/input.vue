@@ -21,7 +21,11 @@
 				// console.log(inputMsg)
 				if (!inputMsg) return;//消息不能为空
 
-				socket.emit('chat message', inputMsg);
+				socket.emit('chat message', {
+					mine: true,
+					content: inputMsg,
+					date: this.moment().format('YYYY-MM-DD HH:mm:ss'),
+				});
 				this.inputMsg = '';
 
 				this.$emit('sendMsg', inputMsg);

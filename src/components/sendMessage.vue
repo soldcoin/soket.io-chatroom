@@ -4,7 +4,7 @@
 			<div class="info">
 				<img src="../assets/logo.png" />
 			</div>
-			<p v-bind="showSendMsg()" class="item">{{ sendMsg }}</p>
+			<p v-bind="showSendMsg()" class="item">{{ sendMsg.content }}</p>
 		</div>
 	</div>
 </template>
@@ -22,7 +22,7 @@
 		},
 		methods: {
 			showSendMsg: function () {
-				var socket = io();
+				// var socket = io();
 				var _this = this;
 				socket.on('chat message', function (msg) {
 					_this.sendMsg = msg;

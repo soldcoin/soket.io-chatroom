@@ -25,7 +25,7 @@
 
 <script>
 
-	var socket = io();
+	// var socket = io();
 
 	export default {
 		name: 'inMesg',
