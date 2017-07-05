@@ -9,6 +9,7 @@ import moment from 'moment'
 Vue.config.productionTip = false;
 Vue.config.devtools 	 = false;
 
+moment.locale('zh-cn');
 Vue.prototype.moment = moment;
 
 // Vue.component('icon', Icon)

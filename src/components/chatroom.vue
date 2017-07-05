@@ -8,9 +8,9 @@
 		</div>
 
 		<div class="chatroom">
-			<div class="inBox" v-for="item in msgGroup">
+			<div v-bind:class="item.isCurrent ?　'outBox' : 'inBox'" v-for="item in msgGroup">
 				<div>
-					<div class="message">
+					<div v-bind:class="item.isCurrent ?　'message msg-mine clearfix' : 'message clearfix'">
 						<div class="info">
 							<img src="../assets/logo.png" />
 						</div>
@@ -31,7 +31,7 @@
 
 			<!-- 输入框 -->
 		<div class="input-box">
-			<input v-model="outMsg" @keydown.13="sendMsg" name="message" id="message" /><button v-on:click="sendMsg">Send</button>
+			<input v-model="outMsg" @keydown.enter="sendMsg" name="message" id="message" /><button v-on:click="sendMsg">Send</button>
 		</div>
 	</div>
 </template>
@@ -43,34 +43,50 @@
 		data () {
 			return {
 				msgGroup: localStorage.msg_history && JSON.parse(localStorage.msg_history) || [],
-				outMsg: ''
+				outMsg: '',
+				roomContainer: '',
 			}
 		},
 		watch: {
-			msgGroup (val) {
+			msgGroup (val) {console.log(val)
 				localStorage.msg_history = JSON.stringify(val);
+				this.scrollEnd();
 			}
 		},
 		methods: {
-			sendMsg: function () {
-				socket.emit('sendMsg', {
-					data: this.moment().format('yy-mm-dd HH-MM-SS a'),
+			sendMsg () {
+				let toMsg = {
+					data: new Date().getTime(),
 					content: this.outMsg,
-				});
-				this.msgGroup.push(this.outMsg);
+					isCurrent: true,
+				}
+				socket.emit('sendMsg', toMsg);
+				this.msgGroup.push(toMsg);
 				this.outMsg = '';
 			},
+			scrollEnd () {
+				setTimeout(() => {
+					this.chatroom = document.querySelector('.chatroom');
+					this.chatroom.scrollTop = this.chatroom.scrollHeight;
+				}, 0);
+			}
 		},
 	    beforeCreate: function () {},
 	    created: function () {},
 	    beforeMount: function () {},
 	    mounted: function () {
-	      console.log(this.$children)
-	      console.log(this.$refs)
+	      // console.log(this.$children)
+	      // console.log(this.$refs)
 	      let _this = this;
-	      socket.on('receiveMsg', function (data) {
+	      
+	      _this.scrollEnd();
+	      // this._vnode.children[2].elm.scrollTop = this._vnode.children[2].elm.scrollHeight;
+
+	      socket.on('receiveMsg', (data) => {			//接收消息
+	      	data.isCurrent = false;
 	      	_this.msgGroup.push(data);
 	      })
+
 	    },
 	    beforeUpdate: function () {},
 	    updated: function () {},
@@ -115,6 +131,7 @@
 	bottom: 0.78rem;
 	width: 100%;
 	background: #f5f5f5;
+	overflow-y: scroll;
 	.inBox {
 		.message {
 			display: flex;
