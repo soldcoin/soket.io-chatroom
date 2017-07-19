@@ -4,7 +4,7 @@
 			<div class="header-left">
 				<img src="../assets/logo.png" />
 			</div>
-			<div class="header-right"></div>
+			<div class="header-right">{{ username }}</div>
 		</div>
 
 		<div class="chatroom">
@@ -38,8 +38,14 @@
 
 <script type="text/javascript">
 
+    import io from 'socket.io-client';
+    const socket = io();
+
 	export default {
 		name: 'chatroom',
+        props: {
+            username: ''
+        },
 		data () {
 			return {
 				msgGroup: localStorage.msg_history && JSON.parse(localStorage.msg_history) || [],
@@ -48,7 +54,7 @@
 			}
 		},
 		watch: {
-			msgGroup (val) {console.log(val)
+			msgGroup (val) {
 				localStorage.msg_history = JSON.stringify(val);
 				this.scrollEnd();
 			}

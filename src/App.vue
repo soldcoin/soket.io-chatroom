@@ -1,12 +1,6 @@
 <template>
   <div id="app">
-<!--     <nav-header></nav-header>
-    <div class="chat-content">
-      <in-msg></in-msg>
-      <out-msg></out-msg>
-    </div>
-    <input-box></input-box> -->
-    <chat-room></chat-room>
+    <component :is="currentView" v-on:cameIn="tabView" :username="username"></component>
   </div>
 </template>
 
@@ -15,13 +9,26 @@
 // import inputBox from './components/input.vue'
 // import inMsg from './components/receiveMessage.vue'
 // import outMsg from './components/sendMessage.vue'
-import chatroom from './components/chatroom.vue'
-
-// const socket = io();s
+import chatroom from './components/chatroom.vue';
+import login from './components/login.vue';
 
 export default {
+  data () {
+    return {
+      username: '',
+      currentView: 'login-name'
+    }
+  },
   components: {
-    'chat-room': chatroom
+    'chat-room': chatroom,
+    'login-name': login
+  },
+  methods: {
+    tabView (data) {
+      if (!data.name) return;
+      this.username = data.name;
+      this.currentView = 'chat-room';
+    }
   }
 }
 </script>

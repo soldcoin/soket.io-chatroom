@@ -104,26 +104,10 @@ const http = require('http');
 
 io.on('connection', (socket) => {
 
-  // socket.broadcast.emit("caron's room");
 
-  //上线
-  // socket.on('online', name => {
-  //   console.log('a user online');
-  //   socket.broadcast.emit('online', name)
-  // });
-
-  // console.log('a user connected');
-
-  // socket.on('chat message', function (msg) {
-  //   io.emit('chat message', msg);
-  // });
   socket.on('sendMsg', function (data) {
     socket.broadcast.emit('receiveMsg', data);
   })
-
-  // socket.on('disconnect', function () {
-    // console.log('user disconnected');
-  // });
 
 });
 
