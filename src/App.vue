@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <component :is="currentView" v-on:cameIn="tabView" :username="username"></component>
+    <component :is="currentView" v-on:cameIn="tabView" :userdata="user"></component>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ import login from './components/login.vue';
 export default {
   data () {
     return {
-      username: '',
+      user: {},
       currentView: 'login-name'
     }
   },
@@ -26,7 +26,7 @@ export default {
   methods: {
     tabView (data) {
       if (!data.name) return;
-      this.username = data.name;
+      this.user = data;
       this.currentView = 'chat-room';
     }
   }
@@ -52,7 +52,7 @@ body, html {
   visibility:hidden;
 }
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: '微软雅黑', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

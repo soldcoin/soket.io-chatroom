@@ -78,7 +78,7 @@ devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n')
   // when env is testing, don't need open it
   if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
-    opn(uri)
+    // opn(uri) 打开页面
   }
   _resolve()
 })
@@ -104,10 +104,21 @@ const http = require('http');
 
 io.on('connection', (socket) => {
 
+  socket.on('login', (userdata) => {              //监听登录
+    socket.userdata = userdata;
 
-  socket.on('sendMsg', function (data) {
-    socket.broadcast.emit('receiveMsg', data);
+    socket.broadcast.emit('user join', socket.userdata)
   })
+
+  socket.on('disconnect', (reason) => {           //监听退出
+    if (socket.userdata) {
+      socket.broadcast.emit('user left', socket.userdata);
+    }  
+  });
+
+  socket.on('sendMsg', function (data) {          //监听消息
+    socket.broadcast.emit('receiveMsg', data);
+  });
 
 });
 

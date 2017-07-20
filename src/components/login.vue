@@ -1,6 +1,6 @@
 <template>
 	<div class="wrapper-bg">
-		<input type="text" name="nickname" maxlength="10" v-model="nickname" @keydown.enter="login(nickname)" />
+		<input type="text" name="nickname" maxlength="10" v-model.trim="nickname" @keydown.enter="login(nickname)" />
 	</div>
 </template>
 
@@ -14,6 +14,7 @@
 		},
 		methods: {
 			login (nickname) {
+				if (!nickname) return;
 				var joinTime = new Date().getTime();
 				this.$emit('cameIn', {name: nickname, date: joinTime });
 				this.nickname = "";
@@ -28,23 +29,24 @@
 		height: 100%;
 		background: #000;
 		position: relative;
+		input[name="nickname"] {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			display: block;
+			width: 60%;
+			height: 0.8rem;
+			line-height: 0.8rem;
+			border: none;
+			background: #000;
+			border-bottom: 1px solid #fff;
+			outline: none;
+			font-size: 0.6rem;
+			text-align: center;
+			color: #fff;
+			font-weight: bold;
+		}
 	}
-	input[name="nickname"] {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		display: block;
-		width: 60%;
-		height: 0.8rem;
-		line-height: 0.8rem;
-		border: none;
-		background: #000;
-		border-bottom: 1px solid #fff;
-		outline: none;
-		font-size: 0.6rem;
-		text-align: center;
-		color: #fff;
-		font-weight: bold;
-	}
+
 </style>
