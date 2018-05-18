@@ -1,17 +1,9 @@
+const express = require('express')
+const app = express()
+
 /***************socket.io**********************/
 
-
-// const http = require('http').Server(app);
-
 const io = require('socket.io')(server);
-
-const http = require('http');
-
-// var bodyParser = require('body-parser');
-
-// app.use(bodyParser.json());
-
-// app.use(bodyParser.urlencoded({ extended: true} ));
 
 io.on('connection', (socket) => {
 
@@ -33,5 +25,6 @@ io.on('connection', (socket) => {
 
 });
 
-
 /***************socket.io**********************/
+
+const server = app.listen('http://http://35.234.7.136:8080/');
