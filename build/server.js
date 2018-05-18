@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 
-const server = app.listen('http://http://35.234.7.136:8080/');
+const server = app.listen(80);
 /***************socket.io**********************/
 
 const io = require('socket.io')(server);
