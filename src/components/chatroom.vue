@@ -40,7 +40,7 @@
 			return {
 				msgGroup: localStorage.msg_history && JSON.parse(localStorage.msg_history) || [],
 				outMsg: '',
-                socket: io(),
+                socket: io.connect('http://35.234.7.136/'),
 			}
 		},
 		watch: {
@@ -80,7 +80,7 @@
 	      console.log(this.$refs)
 
 	      // let _this = this;
-	      
+
 	      this.scrollEnd();
 	      // this._vnode.children[2].elm.scrollTop = this._vnode.children[2].elm.scrollHeight;
 
@@ -134,7 +134,7 @@
     			height: 0.6rem;
     			border-radius: 0.3rem;
     			vertical-align: middle;
-    		}	
+    		}
     	}
     	.header-right {
 
@@ -204,7 +204,7 @@
 
     		}
     	}
-    	
+
     	.outBox {
     		.message {
     			display: flex;
@@ -284,7 +284,7 @@
     			    border-bottom: 0.1rem solid transparent;
     			}
     			}
-    		}		
+    		}
     	}
 
         p.item {

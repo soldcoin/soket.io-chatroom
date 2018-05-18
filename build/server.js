@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 
-const server = app.listen(80);
+const server = app.listen();
 /***************socket.io**********************/
 
 const io = require('socket.io')(server);
