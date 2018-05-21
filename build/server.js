@@ -1,10 +1,11 @@
 const express = require('express')
 const app = express()
+const server = require('http').Server(app)
 
-const server = app.listen();
+
 /***************socket.io**********************/
-
 const io = require('socket.io')(server);
+server.listen(80)
 
 io.on('connection', (socket) => {
 

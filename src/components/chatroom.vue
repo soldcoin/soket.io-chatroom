@@ -40,7 +40,7 @@
 			return {
 				msgGroup: localStorage.msg_history && JSON.parse(localStorage.msg_history) || [],
 				outMsg: '',
-                socket: io.connect('http://35.234.7.136/', {path: '/socket.io'}),
+                socket: io('http://35.234.7.136'),
 			}
 		},
 		watch: {
